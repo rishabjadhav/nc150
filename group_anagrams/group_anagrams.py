@@ -2,11 +2,11 @@ class Solution:
     def group_anagrams(self, strs: List[str]) -> List[List[str]]:
         # define a defaultdict (doesn't throw error if value in k:v is null)
         # this dict stores words that are anagrams of one another, in lists
-        dct = defaultdict(List[str])
+        dct = defaultdict(list)
 
         # iterate through each word in strs
         for w in strs:
-            # count the frequency of each char in the word
+            # holds the frequency of each char (a - z) in the word
             wcount = [0] * 26
 
             # iterate through each character in the word
