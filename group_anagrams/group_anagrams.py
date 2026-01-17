@@ -1,22 +1,19 @@
 class Solution:
-    def group_anagrams(self, strs: List[str]) -> List[List[str]]:
-        # define a defaultdict (doesn't throw error if value in k:v is null)
-        # this dict stores words that are anagrams of one another, in lists
-        dct = defaultdict(list)
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]: # returns list of lists, each list containing words that are anagrams
+        # init defaultdict(), dict that resolves missing keys
+        # specify type of value, list is default value
+        dd = defaultdict(list)
 
-        # iterate through each word in strs
-        for w in strs:
-            # holds the frequency of each char (a - z) in the word
+        for s in strs:
+            # stores numOccurences for each char, index mapped to letter
             wcount = [0] * 26
 
-            # iterate through each character in the word
-            for s in w:
-                # add one to the element in the list whose index corresponds to the rank of the character (a=0,b=1)
-                wcount[ord(s) - ord('a')] += 1
+            for c in s:
+                wcount[ord(c) - ord('a')] += 1
 
-            # add the word to the list of words for which the frequency list of chars matches (hence anagrams)
-            # note that we must typecast the freq. list to a tuple, as mutable data types cannot be dict keys
-            dct[tuple(wcount)].append(w)
+            # append string s to key's value = list of strings
+            # key is wcount typecasted to tuple, only immutable types can be keys
+            dd[tuple(wcount)].append(s)
 
-        # values() returns all elements, must be typecasted to list
-        return list(dct.values())
+        # returns list containing all values, each value is a list of strings that are anagrams of eachother
+        return list(dd.values())

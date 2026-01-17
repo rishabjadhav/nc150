@@ -1,28 +1,25 @@
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # holds the # of occurences of each value, key is the element in nums, value is # occurences
-        count = {}
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:   # returns k most frequent elements in nums
+        # dict, where key = n in nums, value = n count
+        count = dict()
 
-        # each list in freq corresponds to all elements in nums that occur as many times as the index of the list
-        # the number of lists in freq should be size of nums, as a value in nums can only appear at most len(nums) times
-        freq = [[] for i in range(0, len(nums) + 1)]
-
+        # for each n in nums, get the number of occurences
         for n in nums:
-            # increment frequency of n if it appears, defaulting to 0 if unseen
-            count[n] = 1 + count.get(n, 0)
-        # k is key, v is value, given as key-value pairs in count
-        for key, v in count.items():
-            # add the key (element in nums that appears v times) to freq, in index v, where v is the frequency of k
-            freq[v].append(key)
+            count[n] = count.get(n, 0) + 1
 
-        # list to hold the returned value of K most frequent elements
+        # frequency is a list of n lists, where n is the input size of nums
+        # each list at freq[i] will hold every element in nums that occurs i times  
+        frequency = [[] for i in range(0, len(nums) + 1)]
+        
+        # populate frequency
+        for key, val in count.items():
+            frequency[val].append(key)
+
         result = []
 
-        # iterate from the last index in freq to 0, decreasing
-        for i in range(len(freq) - 1, 0, -1):
-            # for each element in a sublist of freq
-            for n in freq[i]:
-                result.append(n)
+        # iterate through every list in frequency, starting at the top (index n)
+        for i in range(len(nums), 0, -1):
+            for j in frequency[i]:
+                result.append(j)
                 if len(result) == k:
                     return result
-

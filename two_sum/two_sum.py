@@ -1,14 +1,15 @@
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: List[int], target: int) -> List[int]: # returns two indices of nums that sum to target
         # create a dict for nums
+        # key: num, val: index
         nms = {}
 
         # iterate through all nums
         for i in range(len(nums)):
-            # before adding num at index i, check if target - nums[i] is in dict
+            # check if target - nums[i] is in dict
             if target - nums[i] in nms:
                 # this means we've found our complement
                 return [i, target - nums[i]]
             
-            # key is the number at i, value is the index i
+            # if not found, add to dict for later
             nms[nums[i]] = i
